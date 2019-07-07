@@ -1,4 +1,6 @@
 const User = require('../model/user');
+const Account = require('../model/account');
+
 
 
 exports.findAll = (req, res) => {
@@ -16,12 +18,30 @@ exports.findAll = (req, res) => {
 
 
 exports.findAlldetail = (req, res) => {
-
-    User
-    .findOne({id: req.param('id')}, {_id: 0, __v: 0})
-    .then(result => {
-        res.send({'attributes':result});
-    }) 
-
-    
+   User
+   .aggregate([
+       {
+           $match: {
+               id: req.param('id')}
+        },
+       {
+           $lookup: {
+            from: "accounts",
+            localField: "id",
+            foreignField: "user_id",
+            as: "account_ids"
+            }
+        },
+       {    
+            $project: {
+                id: 1,
+                name: 1,
+                "account_ids.id": 1
+                
+            }
+       }
+   ])
+   .then(result => {
+       res.send(result);
+   })
 }

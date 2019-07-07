@@ -12,7 +12,7 @@ router.get('', UserController.findAll);
 router.get('/:user_id/accounts', AccountController.findAccountsByUser);
 
 
-//router.get('/:id', UserController.findAlldetail);
+router.get('/:id', UserController.findAlldetail);
 
-router.get('/:user_id', AccountController.findAllAccountIDforUser);
+//router.get('/:user_id', AccountController.findAllAccountIDforUser);
 module.exports = router;

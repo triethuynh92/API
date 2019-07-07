@@ -1,5 +1,5 @@
 const Account = require('../model/account');
-
+const User = require('../model/user');
 
 // Find all Account 
 exports.findAll = (req, res) => {
