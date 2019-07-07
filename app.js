@@ -6,6 +6,19 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const apiAccounts = require('./routes/apiaccount');
+const apiUsers = require('./routes/apiuser');
+
+const mongoose = require('mongoose');
+const {
+  MONGO_URI = 'mongodb+srv://devops:share123@cluster0-7pxu5.gcp.mongodb.net/havana?retryWrites=true',
+} = process.env;
+
+mongoose
+  .connect(MONGO_URI)
+  .then(() => {
+    console.log('connection to db successfully!');
+  });
 
 var app = express();
 
@@ -18,6 +31,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/accounts',apiAccounts);
+app.use('/users', apiUsers);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

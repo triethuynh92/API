@@ -3,7 +3,7 @@ const userSeeder = require('./user_seeder.js');
 const accountSeeder = require('./account_seeder.js');
 
 // connect mongodb
-seeder.connect('mongodb://localhost:27017/havana', function() {
+seeder.connect('mongodb+srv://devops:share123@cluster0-7pxu5.gcp.mongodb.net/havana', function() {
   /* seeder.loadModels([
     '../model/user'  // load mongoose model 
   ]);

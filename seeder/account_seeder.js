@@ -1,14 +1,14 @@
-const seeder = require('mongoose-seed');
+//const seeder = require('mongoose-seed');
 const faker = require('faker');
 const userModel = require('../model/user');
 
-const countUser = async () => {
-  return userModel.count().exec();
-}
+// const countUser = async () => {
+//   return userModel.count().exec();
+// }
 
-const a = countUser().then((data) => {
-  return data;
-})
+// const a = countUser().then((data) => {
+//   return data;
+// })
 
 let generatedAccounts = [];
 
