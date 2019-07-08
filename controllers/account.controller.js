@@ -1,7 +1,7 @@
 const Account = require('../model/account');
 const User = require('../model/user');
 
-// Find all Account 
+// Find all Accounts
 exports.findAll = (req, res) => {
     Account
     .find()
@@ -15,7 +15,7 @@ exports.findAll = (req, res) => {
     })
 }
 
-// Find one Account by "id" property
+// Find an Account by "Id"
 exports.findOne = (req,res) => {
     Account
     // Find a Account by "id" property and except the "_id" & "__v" field
@@ -35,6 +35,7 @@ exports.findOne = (req,res) => {
     })
 }
 
+// Find all Accounts by "user_id" of User
 exports.findAccountsByUser = (req, res) => {
     Account
     .find({user_id: req.param('user_id')}, {_id: 0, __v: 0})
@@ -51,14 +52,3 @@ exports.findAccountsByUser = (req, res) => {
 
 }
 
-exports.findAllAccountIDforUser = (req, res) => {
-    Account
-    .find({user_id: req.param('user_id')})
-    .then(result => {
-        let a = result.map(data => {
-            return data.id;
-        })
-        res.send({'accounts_id':a});
-       
-    })
-}

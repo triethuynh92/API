@@ -1,8 +1,6 @@
 const User = require('../model/user');
-const Account = require('../model/account');
 
-
-
+// Find all Users 
 exports.findAll = (req, res) => {
     User
     .find()
@@ -16,20 +14,20 @@ exports.findAll = (req, res) => {
     })
 }
 
-
+// Find a User with Detail
 exports.findAlldetail = (req, res) => {
    User
    .aggregate([
        {
            $match: {
-               id: +req.param('id')}
+                id: +req.param('id')}
         },
        {
            $lookup: {
-            from: "accounts",
-            localField: "id",
-            foreignField: "user_id",
-            as: "account_ids"
+                from: "accounts",
+                localField: "id",
+                foreignField: "user_id",
+                as: "account_ids"
             }
         },
        {    
@@ -38,13 +36,12 @@ exports.findAlldetail = (req, res) => {
                 id: 1,
                 name: 1,
                 "account_ids.id": 1
-                
             }
        }
    ])
    .then(result => {
-          result.account_ids = result.map(data => {
-             data.account_ids = data.account_ids.map(b => b.id);
+        result.account_ids = result.map(data => {
+            data.account_ids = data.account_ids.map(b => b.id);
          })
         res.send({"attributes":result});
    })

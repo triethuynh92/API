@@ -1,9 +1,8 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-var Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
 
-var AccountSchema = new mongoose.Schema({
+
+const AccountSchema = new mongoose.Schema({
         id: {type: Number},
         user_id: {type: Number, ref: 'User'},
         name: String,
