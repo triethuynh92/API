@@ -22,7 +22,7 @@ exports.findAlldetail = (req, res) => {
    .aggregate([
        {
            $match: {
-               id: req.param('id')}
+               id: +req.param('id')}
         },
        {
            $lookup: {
@@ -34,6 +34,7 @@ exports.findAlldetail = (req, res) => {
         },
        {    
             $project: {
+                _id: 0,
                 id: 1,
                 name: 1,
                 "account_ids.id": 1
@@ -42,6 +43,9 @@ exports.findAlldetail = (req, res) => {
        }
    ])
    .then(result => {
-       res.send(result);
+          result.account_ids = result.map(data => {
+             data.account_ids = data.account_ids.map(b => b.id);
+         })
+        res.send({"attributes":result});
    })
 }
